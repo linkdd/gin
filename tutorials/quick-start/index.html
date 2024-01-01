@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <title>Gin - Quick Start</title>
+    <base href="https://linkdd.github.io/gin/" />
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  </head>
+
+  <body class="bg-gunmetal">
+    <nav
+  class="
+    flex items-center
+    bg-paynegrey
+    shadow-xl
+  "
+>
+  <div><a
+    class="
+      px-6 py-4
+      text-2xl text-coral
+      hover:bg-black/10
+      font-semibold
+    "
+    href="./"
+  >
+    Gin
+  </a></div>
+  <ul class="flex items-center">
+          <li class="px-6 py-4 hover:bg-black/10">
+                  <a
+            class="text-xl text-silver font-semibold"
+            href="https://github.com/linkdd/gin"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+              </li>
+          <li class="px-6 py-4 hover:bg-black/10">
+                  <a
+            class="text-xl text-silver font-semibold"
+            href="./tutorials/"
+          >
+            Tutorials
+          </a>
+              </li>
+          <li class="px-6 py-4 hover:bg-black/10">
+                  <a
+            class="text-xl text-silver font-semibold"
+            href="./docs/"
+          >
+            Documentation
+          </a>
+              </li>
+      </ul>
+</nav>
+
+    <main class="p-6 space-y-6">
+        <section
+    class="
+      w-full
+      p-6
+      bg-paynegrey/50
+      shadow-xl
+      text-silver
+      is-markdown
+    "
+  >
+    <h1 id="create-a-new-project" tabindex="-1">Create a new project</h1>
+<p>Run the following commands to setup a new project:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-console"><span class="line"><span style="color: #F8F8F2">$ mkdir my-website</span></span>
+<span class="line"><span style="color: #F8F8F2">$ cd my-website</span></span>
+<span class="line"><span style="color: #F8F8F2">$ npm init</span></span>
+<span class="line"><span style="color: #F8F8F2">$ npm install --save-dev linkdd/gin@v0.2.0</span></span>
+<span class="line"><span style="color: #F8F8F2">$ npx gin init </span><span style="color: #66D9EF">.</span></span>
+<span class="line"></span></code></pre>
+<p>This should create the following tree:</p>
+<ul class="tree">
+<li><i class="fas fa-folder-open"></i> <code>my-website/</code>
+<ul>
+<li><i class="fas fa-file"></i> <code>config.yaml</code> — This is the project's configuration</li>
+<li><i class="fas fa-folder-open"></i> <code>content/</code> — This is where we put the website's pages
+<ul>
+<li><i class="fas fa-file"></i> <code>_index.md</code></li>
+</ul>
+</li>
+<li><i class="fas fa-folder-open"></i> <code>templates/</code> — This is where we put the HTML templates
+<ul>
+<li><i class="fas fa-folder-open"></i> <code>layouts/</code> — Each page can define a layout, if none is specified, <code>_default</code> is used
+<ul>
+<li><i class="fas fa-file"></i> <code>base.html</code></li>
+<li><i class="fas fa-folder-open"></i> <code>_default/</code> — A layout must contain 3 templates:
+<ul>
+<li><i class="fas fa-file"></i> <code>home.html</code> — One for the homepage</li>
+<li><i class="fas fa-file"></i> <code>section.html</code> — One for a page with children</li>
+<li><i class="fas fa-file"></i> <code>single.html</code> — One for a page with no children</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><i class="fas fa-folder-open"></i> <code>data/</code> — This is where we put static data (could be fetched from an API or a database)</li>
+<li><i class="fas fa-folder-open"></i> <code>static/</code> — This is where we put static files (images, CSS, scripts, ...)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="website-content" tabindex="-1">Website content</h1>
+<p>In the <code>content/</code> folder, we will find for example:</p>
+<ul class="tree">
+<li><i class="fas fa-folder-open"></i> <code>content/</code>
+<ul>
+<li><i class="fas fa-file"></i> <code>_index.md</code> — Template <code>home.html</code></li>
+<li><i class="fas fa-file"></i> <code>about.md</code> — Template <code>single.html</code></li>
+<li><i class="fas fa-folder-open"></i> <code>posts/</code>
+<ul>
+<li><i class="fas fa-file"></i> <code>_index.md</code> — Template <code>section.html</code></li>
+<li><i class="fas fa-file"></i> <code>01-hello.md</code> — Template <code>single.html</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="grid grid-cols-3">
+<div class="[&amp;>p]:text-center">
+<p>Every Markdown file will have a <strong>frontmatter</strong> header:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-markdown"><span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"><span style="color: #F92672">title</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">Page title</span></span>
+<span class="line"><span style="color: #F92672">weight</span><span style="color: #F8F8F2">: </span><span style="color: #AE81FF">0</span></span>
+<span class="line"><span style="color: #F92672">layout</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">_default</span><span style="color: #F8F8F2"> </span><span style="color: #88846F"># optional</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F92672">foo</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">bar</span></span>
+<span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F8F8F2">Page content (in markdown)</span></span>
+<span class="line"></span></code></pre>
+</div>
+<div class="[&amp;>p]:text-center">
+<p>The content can contain HTML:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-markdown"><span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"><span style="color: #F92672">title</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">Example</span></span>
+<span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F8F8F2">&lt;div class="foo"&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #A6E22E; font-weight: bold"># Hello in a div</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F8F8F2">&lt;/div&gt;</span></span>
+<span class="line"></span></code></pre>
+</div>
+<div class="[&amp;>p]:text-center">
+<p>As well as Twing template directives:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-markdown"><span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"><span style="color: #F92672">title</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">Example</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F92672">items</span><span style="color: #F8F8F2">:</span></span>
+<span class="line"><span style="color: #F8F8F2">  - </span><span style="color: #E6DB74">foo</span></span>
+<span class="line"><span style="color: #F8F8F2">  - </span><span style="color: #E6DB74">bar</span></span>
+<span class="line"><span style="color: #F8F8F2">  - </span><span style="color: #E6DB74">baz</span></span>
+<span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F8F8F2">{% for item in page.params.items %}</span></span>
+<span class="line"><span style="color: #A6E22E">-</span><span style="color: #F8F8F2"> {{ item }}</span></span>
+<span class="line"><span style="color: #F8F8F2">{% endfor %}</span></span>
+<span class="line"></span></code></pre>
+</div>
+</div>
+<article class="p-3 my-6 border-l-8 border-paynegrey bg-paynegrey/50 shadow-md">
+<div class="flex items-center">
+<div class="w-1/2">
+<p><strong>NB:</strong> Includes are resolved from the <code>templates/shortcodes/</code> folder, the
+following example will render the template <code>templates/shortcodes/hello.html</code> in
+your document:</p>
+</div>
+<div class="w-1/2">
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-markdown"><span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"><span style="color: #F92672">title</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">Example</span></span>
+<span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F8F8F2">{% include "hello.html" %}</span></span>
+<span class="line"></span></code></pre>
+</div>
+</div>
+</article>
+<hr>
+<h1 id="website-layouts" tabindex="-1">Website layouts</h1>
+<div class="flex items-center">
+<div class="w-1/2">
+<p>In a document's frontmatter, if the key <code>layout</code> is specified, <strong>Gin</strong> will look
+for templates in the <code>templates/layout/{layout}/</code> folder. If not specified, the
+layout <code>_default</code> is assumed.</p>
+<p>In the following example, <strong>Gin</strong> will look for templates in the
+<code>templates/layout/foo/</code> folder:</p>
+</div>
+<div class="w-1/2">
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-markdown"><span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"><span style="color: #F92672">title</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">Example</span></span>
+<span class="line"><span style="color: #F92672">layout</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">foo</span></span>
+<span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #A6E22E; font-weight: bold"># Hello</span></span>
+<span class="line"></span></code></pre>
+</div>
+</div>
+<p>There are 3 kinds of documents:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Document type</th>
+<th>Location in content directory</th>
+<th>Template</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The homepage</td>
+<td><code>content/_index.md</code></td>
+<td><code>templates/layouts/{layout}/home.html</code></td>
+</tr>
+<tr>
+<td>A section</td>
+<td><code>content/**/_index.md</code></td>
+<td><code>templates/layouts/{layout}/section.html</code></td>
+</tr>
+<tr>
+<td>A single page</td>
+<td><code>content/**/*.md</code></td>
+<td><code>templates/layouts/{layout}/single.html</code></td>
+</tr>
+</tbody>
+</table>
+<p>Each document <strong>AND</strong> template have  access to the following data:</p>
+<div class="mermaid">classDiagram
+    direction LR
+
+    class PageTemplateData {
+        +url: string
+        +title: string
+        +params: Object
+        +isHome: boolean
+        +isSection: boolean
+        +children: PageTemplateData[]
+    }
+
+    class PagesTemplateData {
+        [url: string]: PageTemplateData
+    }
+
+    class SiteTemplateData {
+        +title: string
+        +description?: string
+        +languageCode?: string
+        +pages: PagesTemplateData
+        +params: Object
+        +data: any
+    }
+
+    class TemplateData {
+        +content: string
+        +page: PageTemplateData
+        +site: SiteTemplateData
+    }
+
+    PageTemplateData --&gt; PageTemplateData : children
+    TemplateData --&gt; PageTemplateData : page
+    TemplateData --&gt; SiteTemplateData : site
+    SiteTemplateData --&gt; PagesTemplateData : pages</div><p>For example, a section template could look like this:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-html"><span class="line"><span style="color: #F8F8F2">&lt;</span><span style="color: #F92672">html</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;</span><span style="color: #F92672">head</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;</span><span style="color: #F92672">title</span><span style="color: #F8F8F2">&gt;{{ site.title }} - {{ page.title }}&lt;/</span><span style="color: #F92672">title</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;/</span><span style="color: #F92672">head</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;</span><span style="color: #F92672">body</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;</span><span style="color: #F92672">nav</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">      {% for child in page.children %}</span></span>
+<span class="line"><span style="color: #F8F8F2">        &lt;</span><span style="color: #F92672">a</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">href</span><span style="color: #F8F8F2">=</span><span style="color: #E6DB74">"{{ child.url }}"</span><span style="color: #F8F8F2">&gt;{{ child.title }}&lt;/</span><span style="color: #F92672">a</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">      {% endfor %}</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;/</span><span style="color: #F92672">nav</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;</span><span style="color: #F92672">main</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">      {{ content|raw }}</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;/</span><span style="color: #F92672">main</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;/</span><span style="color: #F92672">body</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">&lt;/</span><span style="color: #F92672">html</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"></span></code></pre>
+<article class="p-3 my-6 border-l-8 border-paynegrey bg-paynegrey/50 shadow-md">
+<p><strong>NB:</strong> Layout templates will resolve templates from the <code>templates/</code> folder.</p>
+</article>
+<p>One common use case is to have a root template <code>templates/base.html</code> and have
+your layout templates inherit from it:</p>
+<div class="flex">
+<div class="w-1/2 [&amp;>p]:text-center">
+<p><strong>templates/base.html</strong></p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-html"><span class="line"><span style="color: #F8F8F2">&lt;</span><span style="color: #F92672">html</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;</span><span style="color: #F92672">head</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;</span><span style="color: #F92672">title</span><span style="color: #F8F8F2">&gt;{{ site.title }} - {{ page.title }}&lt;/</span><span style="color: #F92672">title</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;/</span><span style="color: #F92672">head</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;</span><span style="color: #F92672">body</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    {% block content %}</span></span>
+<span class="line"><span style="color: #F8F8F2">    {% endblock %}</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;/</span><span style="color: #F92672">body</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">&lt;/</span><span style="color: #F92672">html</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"></span></code></pre>
+</div>
+<div class="w-1/2 [&amp;>p]:text-center">
+<p><strong>templates/layouts/_default/home.html</strong></p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-html"><span class="line"><span style="color: #F8F8F2">{% extends "base.html" %}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F8F8F2">{% block content %}</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;</span><span style="color: #F92672">h1</span><span style="color: #F8F8F2">&gt;Welcome on my website&lt;/</span><span style="color: #F92672">h1</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;</span><span style="color: #F92672">main</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    {{ content|raw }}</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;/</span><span style="color: #F92672">main</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">{% endblock %}</span></span>
+<span class="line"></span></code></pre>
+</div>
+</div>
+
+  </section>
+    </main>
+
+    <footer class="p-6 mt-6 text-silver/50 text-center">
+  <p>Copyright &copy; 2024, David Delassus.</p>
+  <p>
+    Website content is distributed under the terms of the
+    <a
+      class="text-coral hover:text-coral/50"
+      href="https://creativecommons.org/licenses/by-sa/4.0/"
+    >
+      CC-BY-SA 4.0
+    </a>
+    license.
+  </p>
+</footer>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+      mermaid.initialize({
+        theme: 'forest'
+      })
+    </script>
+  </body>
+</html>
