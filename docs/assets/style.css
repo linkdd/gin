@@ -1,3 +1,154 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .feature-list {
+    @apply text-2xl;
+    @apply list-none !important;
+  }
+
+  .comparison-table {
+    @apply w-full;
+    @apply border-collapse border border-silver;
+  }
+
+  .comparison-table tr {
+    @apply hover:bg-black/10;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    @apply first:w-0 first:whitespace-nowrap;
+    @apply px-3 py-2;
+    @apply text-center first:text-left;
+    @apply border border-silver;
+  }
+
+  .comparison-table th {
+    @apply bg-gunmetal/75;
+  }
+  .comparison-table td {
+    @apply first:bg-gunmetal/50;
+  }
+
+  .comparison-table-separator {
+    @apply bg-silver hover:bg-silver !important;
+  }
+
+  .comparison-table-separator td,
+  .comparison-table-separator th {
+    @apply p-0.5;
+  }
+
+  .tree ul {
+    margin-left: 20px;
+  }
+
+  .tree li {
+    list-style-type: none;
+    margin:10px;
+    position: relative;
+  }
+
+  .tree li::before {
+    content: "";
+    position: absolute;
+    top:-7px;
+    left:-20px;
+    border-left: 1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    border-radius:0 0 0 0px;
+    width:20px;
+    height:15px;
+  }
+
+  .tree li::after {
+    position:absolute;
+    content:"";
+    top:8px;
+    left:-20px;
+    border-left: 1px solid #ccc;
+    border-top:1px solid #ccc;
+    border-radius:0px 0 0 0;
+    width:20px;
+    height:100%;
+  }
+
+  .tree li:last-child::after  {
+    display:none;
+  }
+
+  .tree li:last-child:before{
+    border-radius: 0 0 0 5px;
+  }
+
+  ul.tree>li:first-child::before {
+    display:none;
+  }
+
+  ul.tree>li:first-child::after {
+    border-radius:5px 0 0 0;
+  }
+
+  .tree li a {
+    border: 1px #ccc solid;
+    border-radius: 5px;
+    padding:2px 5px;
+  }
+
+  .tree li a:hover, .tree li a:hover+ul li a,
+  .tree li a:focus, .tree li a:focus+ul li a {
+    background: #ccc; color: #000; border: 1px solid #000;
+  }
+
+  .tree li a:hover+ul li::after, .tree li a:focus+ul li::after,
+  .tree li a:hover+ul li::before, .tree li a:focus+ul li::before
+  .tree li a:hover+ul::before, .tree li a:focus+ul::before
+  .tree li a:hover+ul ul::before, .tree li a:focus+ul ul::before{
+    border-color:  #000; /*connector color on hover*/
+  }
+}
+
+@layer utilities {
+  .is-markdown {
+    @apply [&_h1]:text-5xl [&_h1]:font-semibold [&_h1:first-child]:mt-0 [&_h1]:my-6 [&_h1]:pb-3 [&_h1]:border-b;
+    @apply [&_h2]:text-4xl [&_h2]:font-semibold [&_h2:first-child]:mt-0 [&_h2]:my-6;
+    @apply [&_h3]:text-3xl [&_h3]:font-semibold [&_h3:first-child]:mt-0 [&_h3]:my-6;
+    @apply [&_h4]:text-2xl [&_h4]:font-semibold [&_h4:first-child]:mt-0 [&_h4]:my-6;
+    @apply [&_h5]:text-xl [&_h5]:font-semibold [&_h5:first-child]:mt-0 [&_h5]:my-6;
+    @apply [&_h6]:text-lg [&_h6]:font-semibold [&_h6:first-child]:mt-0 [&_h6]:my-6;
+    @apply [&_p]:text-lg [&_p:first-child]:mt-0 [&_p]:my-3;
+    @apply [&_a]:text-coral [&_a:hover]:text-coral/50;
+    @apply [&_ul]:list-disc [&_ul]:list-inside [&_ul]:my-3 [&_ul]:ml-6;
+    @apply [&_ol]:list-decimal [&_ol]:list-inside [&_ol]:my-3 [&_ol]:ml-6;
+    @apply [&_pre]:p-3 [&_pre]:m-6 [&_pre]:shadow-md;
+    @apply [&_p>code]:bg-black/20 [&_p>code]:shadow [&_p>code]:p-1 [&_p>code]:mx-1;
+    @apply [&_th>code]:bg-black/20 [&_th>code]:shadow [&_th>code]:p-1 [&_th>code]:mx-1;
+    @apply [&_td>code]:bg-black/20 [&_td>code]:shadow [&_td>code]:p-1 [&_td>code]:mx-1;
+  }
+
+  .table {
+    @apply w-full;
+    @apply border-collapse border border-silver;
+  }
+
+  .table tr {
+    @apply hover:bg-black/10;
+  }
+
+  .table th {
+    @apply bg-gunmetal/75;
+  }
+
+  .table th,
+  .table td {
+    @apply px-3 py-2;
+    @apply border border-silver;
+    @apply text-center;
+  }
+
+  .mermaid {
+    @apply text-center;
+  }
+}

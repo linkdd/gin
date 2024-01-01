@@ -28,47 +28,72 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const express_1 = __importDefault(require("express"));
-const fsUtils = __importStar(require("../fs"));
-const render_1 = __importDefault(require("../render"));
-const scan_1 = __importDefault(require("../render/page/scan"));
-const runServeCommand = async (props) => {
-    const app = (0, express_1.default)();
-    const staticDir = path_1.default.join(props.projectDir, 'static');
-    if (await fsUtils.exists(staticDir)) {
-        app.use(express_1.default.static(staticDir));
-    }
-    app.get('*', async (req, res, next) => {
-        if (!req.path.endsWith('/')) {
-            res.redirect(`${req.path}/`);
+const cmd_ts_1 = require("cmd-ts");
+const fs_1 = require("cmd-ts/batteries/fs");
+const fsUtils = __importStar(require("../utils/fs"));
+const config_1 = require("../services/config");
+const content_1 = require("../services/content");
+const render_1 = require("../services/render");
+exports.default = (0, cmd_ts_1.command)({
+    name: 'serve',
+    description: 'Serve current website',
+    args: {
+        project: (0, cmd_ts_1.option)({
+            description: "Path to website's source",
+            type: fs_1.Directory,
+            long: 'project',
+            short: 'p',
+            defaultValue: () => process.cwd(),
+        }),
+        bind: (0, cmd_ts_1.option)({
+            description: 'Port to bind to',
+            type: cmd_ts_1.number,
+            long: 'bind',
+            short: 'b',
+            defaultValue: () => 1515,
+        }),
+    },
+    async handler({ project, bind }) {
+        const app = (0, express_1.default)();
+        const staticDir = path_1.default.join(project, 'static');
+        if (await fsUtils.exists(staticDir)) {
+            app.use(express_1.default.static(staticDir));
         }
-        else {
-            try {
-                const contentDir = path_1.default.join(props.projectDir, 'content');
-                const contentPath = req.path.slice(1, req.path.length - 1);
-                const urlCache = await (0, scan_1.default)(contentDir);
-                const page = urlCache[req.path];
-                if (page !== undefined) {
-                    const html = await (0, render_1.default)(urlCache, page, props.projectDir, props.config);
-                    console.error(`GET ${req.path} 200 OK`);
-                    res.status(200).send(html);
+        app.get('*', async (req, res, next) => {
+            if (!req.path.endsWith('/')) {
+                res.redirect(`${req.path}/`);
+            }
+            else {
+                try {
+                    const cfg = await (0, config_1.loadConfiguration)(project);
+                    cfg.baseURL = '/';
+                    const contentDir = path_1.default.join(project, 'content');
+                    const urlCache = await (0, content_1.scanContentDir)(contentDir);
+                    const page = urlCache[req.path];
+                    if (page !== undefined) {
+                        const html = await (0, render_1.renderDocument)(urlCache, page, project, cfg);
+                        console.log(`GET ${req.path} 200 OK`);
+                        res.status(200).send(html);
+                    }
+                    else {
+                        console.error(`GET ${req.path} 404 NOT_FOUND`);
+                        res.status(404).send('Document not found');
+                    }
                 }
-                else {
-                    console.error(`GET ${req.path} 404 NOT_FOUND`);
-                    res.status(404).send('Document not found');
+                catch (err) {
+                    next(err);
                 }
             }
-            catch (err) {
-                next(err);
-            }
-        }
-    });
-    app.use((err, req, res) => {
-        console.error(err);
-        res.status(500).send('An error occured');
-    });
-    await new Promise(resolve => {
-        app.listen(props.bindPort, () => { resolve(undefined); });
-    });
-    console.log(`Listening on http://localhost:${props.bindPort}`);
-};
-exports.default = runServeCommand;
+        });
+        app.use((err, req, res) => {
+            console.error(err);
+            res.status(500).send('An error occured');
+        });
+        await new Promise((resolve) => {
+            app.listen(bind, () => {
+                resolve(undefined);
+            });
+        });
+        console.log(`Listening on http://localhost:${bind}`);
+    },
+});

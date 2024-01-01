@@ -6,16 +6,24 @@
     <meta charset="utf-8" />
 
     <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   </head>
 
   <body class="bg-gunmetal">
     {% include "partials/nav.html" %}
 
-    <main class="p-6">
+    <main class="p-6 space-y-6">
       {% block body %}
       {% endblock %}
     </main>
 
     {% include "partials/footer.html" %}
+
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+      mermaid.initialize({
+        theme: 'forest'
+      })
+    </script>
   </body>
 </html>

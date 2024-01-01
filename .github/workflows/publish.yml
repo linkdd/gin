@@ -18,6 +18,7 @@ jobs:
       - name: build-pkg@npm
         run: |
           npm install
+          npm run ci:lint
           npm run build
       - name: build-docs@npm
         working-directory: ./docs

@@ -1,7 +1,10 @@
 items:
-  - href: "https://github.com/linkdd/gensite"
+  - href: "https://github.com/linkdd/gin"
     title: "GitHub"
     extern: true
+  - href: "./tutorials/"
+    title: "Tutorials"
+    extern: false
   - href: "./docs/"
     title: "Documentation"
     extern: false

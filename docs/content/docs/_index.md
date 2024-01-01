@@ -1,5 +1,4 @@
 ---
 title: Documentation
+content: false
 ---
-
-**Work in progress**

@@ -1,6 +1,6 @@
 ---
-title: GenSite
-baseURL: "https://linkdd.github.io/gensite/"
+title: Gin
+baseURL: "https://linkdd.github.io/gin/"
 
 highlighter:
   theme: monokai
