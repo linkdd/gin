@@ -1,0 +1,31 @@
+name: publish@gh-pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout@scm
+        uses: actions/checkout@v2
+      - name: node@setup
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+      - name: build-pkg@npm
+        run: |
+          npm install
+          npm run build
+      - name: build-docs@npm
+        working-directory: ./docs
+        run: |
+          npm install
+          npm run build
+      - name: publish@gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/public

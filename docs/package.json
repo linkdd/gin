@@ -1,0 +1,15 @@
+{
+  "name": "gensite-docs",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tailwindcss -i ./assets/style.css -o ./static/style.css && gensite -p . build",
+    "tw": "tailwindcss -i ./assets/style.css -o ./static/style.css --watch",
+    "dev": "gensite -p . serve"
+  },
+  "dependencies": {
+    "gensite": "file:.."
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

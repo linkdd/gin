@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="{{ site.languageCode }}">
+  <head>
+    <title>{{ site.title }} - {{ page.title }}</title>
+    <base href="{{ site.baseURL }}" />
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body class="bg-gunmetal">
+    {% include "partials/nav.html" %}
+
+    <main class="p-6">
+      {% block body %}
+      {% endblock %}
+    </main>
+
+    {% include "partials/footer.html" %}
+  </body>
+</html>

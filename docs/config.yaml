@@ -1,0 +1,6 @@
+---
+title: GenSite
+baseURL: "https://linkdd.github.io/gensite/"
+
+highlighter:
+  theme: monokai

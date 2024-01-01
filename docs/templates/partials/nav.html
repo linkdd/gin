@@ -1,0 +1,42 @@
+<nav
+  class="
+    flex items-center
+    bg-paynegrey
+    shadow-xl
+  "
+>
+  <div><a
+    class="
+      px-6 py-4
+      text-2xl text-coral
+      hover:bg-black/10
+      font-semibold
+    "
+    href="./"
+  >
+    GenSite
+  </a></div>
+  <ul class="flex items-center">
+    {% for menuitem in site.data.menu.items %}
+      <li class="px-6 py-4 hover:bg-black/10">
+        {% if menuitem.extern %}
+          <a
+            class="text-xl text-silver font-semibold"
+            href="{{ menuitem.href }}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ menuitem.title }}
+          </a>
+        {% else %}
+          <a
+            class="text-xl text-silver font-semibold"
+            href="{{ menuitem.href }}"
+          >
+            {{ menuitem.title }}
+          </a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</nav>

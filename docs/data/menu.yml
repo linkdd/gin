@@ -1,0 +1,7 @@
+items:
+  - href: "https://github.com/linkdd/gensite"
+    title: "GitHub"
+    extern: true
+  - href: "./docs/"
+    title: "Documentation"
+    extern: false
