@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <title>GenSite - Homepage</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+
+  <body class="bg-gunmetal">
+    <nav
+  class="
+    flex items-center
+    bg-paynegrey
+    shadow-xl
+  "
+>
+  <div><a
+    class="
+      px-6 py-4
+      text-2xl text-coral
+      hover:bg-black/10
+      font-semibold
+    "
+    href="/"
+  >
+    GenSite
+  </a></div>
+  <ul class="flex items-center">
+          <li class="px-6 py-4 hover:bg-black/10">
+        <a
+          class="text-xl text-silver font-semibold"
+          href="https://github.com/linkdd/gensite"
+        >
+          GitHub
+        </a>
+      </li>
+          <li class="px-6 py-4 hover:bg-black/10">
+        <a
+          class="text-xl text-silver font-semibold"
+          href="/docs/"
+        >
+          Documentation
+        </a>
+      </li>
+      </ul>
+</nav>
+
+    <main class="p-6">
+        <section
+    class="
+      w-full
+      p-6
+      bg-paynegrey/50
+      shadow-xl
+      text-silver
+      [&_h1]:text-5xl [&_h1]:font-semibold [&_h1:first-child]:mt-0 [&_h1]:my-6 [&_h1]:pb-3 [&_h1]:border-b
+      [&_h2]:text-4xl [&_h2]:font-semibold [&_h2:first-child]:mt-0 [&_h2]:my-6
+      [&_h3]:text-3xl [&_h3]:font-semibold [&_h3:first-child]:mt-0 [&_h3]:my-6
+      [&_h4]:text-2xl [&_h4]:font-semibold [&_h4:first-child]:mt-0 [&_h4]:my-6
+      [&_h5]:text-xl [&_h5]:font-semibold [&_h5:first-child]:mt-0 [&_h5]:my-6
+      [&_h6]:text-lg [&_h6]:font-semibold [&_h6:first-child]:mt-0 [&_h6]:my-6
+      [&_p]:text-lg [&_p:first-child]:mt-0 [&_p]:my-3
+      [&_a]:text-coral [&_a:hover]:text-coral/50
+      [&_ul]:list-disc [&_ul]:list-inside [&_ul]:my-3 [&_ul]:ml-6
+      [&_ol]:list-decimal [&_ol]:list-inside [&_ol]:my-3 [&_ol]:ml-6
+      [&_pre]:p-3 [&_pre]:mx-6 [&_pre]:shadow-md
+      [&_p>code]:bg-black/20 [&_p>code]:shadow [&_p>code]:p-1 [&_p>code]:mx-1
+    "
+  >
+    <h1 id="introduction">Introduction</h1>
+<p><strong>GenSite</strong> is an opiniated static website generator made in TypeScript, and
+inspired by <a href="https://gohugo.io">Hugo</a>.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><a href="https://gitlab.com/nightlycommit/twing">Twing</a> templating engine, easier to use than Go Templates</li>
+<li><a href="https://shiki.matsu.io">Shiki</a> highlighting engine, allowing you to provide your own TexMate grammar</li>
+</ul>
+<h1 id="getting-started">Getting Started</h1>
+<p>First, create a new NodeJS package and install GenSite:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="shell language-shell"><span class="line"><span style="color: #A6E22E">$</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">npm</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">init</span></span>
+<span class="line"><span style="color: #A6E22E">$</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">npm</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">install</span><span style="color: #F8F8F2"> </span><span style="color: #AE81FF">--save</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">linkdd/gensite#v0.1.0</span></span></code></pre>
+<p>Create a <code>config.yaml</code> file:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="yaml language-yaml"><span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"><span style="color: #F92672">title</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">My website</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F92672">highlighter</span><span style="color: #F8F8F2">:</span></span>
+<span class="line"><span style="color: #F8F8F2">  </span><span style="color: #F92672">theme</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">monokai</span></span></code></pre>
+<p>Create your base layout in <code>templates/layouts/base.html</code>:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="twig language-twig"><span class="line"><span style="color: #F8F8F2">&lt;!DOCTYPE html&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">&lt;</span><span style="color: #F92672">html</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;</span><span style="color: #F92672">head</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;</span><span style="color: #F92672">title</span><span style="color: #F8F8F2">&gt;{{ site.title }} - {{ page.title }}&lt;/</span><span style="color: #F92672">title</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;/</span><span style="color: #F92672">head</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;</span><span style="color: #F92672">body</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;</span><span style="color: #F92672">header</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">      &lt;</span><span style="color: #F92672">h1</span><span style="color: #F8F8F2">&gt;{{ page.title }}&lt;/</span><span style="color: #F92672">h1</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;/</span><span style="color: #F92672">header</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;</span><span style="color: #F92672">main</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">      {% </span><span style="color: #F92672">block</span><span style="color: #F8F8F2"> body %}</span></span>
+<span class="line"><span style="color: #F8F8F2">      {% </span><span style="color: #F92672">endblock</span><span style="color: #F8F8F2"> %}</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;/</span><span style="color: #F92672">main</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;/</span><span style="color: #F92672">body</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">&lt;/</span><span style="color: #F92672">html</span><span style="color: #F8F8F2">&gt;</span></span></code></pre>
+<p>Then create your homepage's layout in <code>templates/layouts/_default/home.html</code>:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="twig language-twig"><span class="line"><span style="color: #F8F8F2">{% </span><span style="color: #F92672">extends</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">"layouts/base.html"</span><span style="color: #F8F8F2"> %}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F8F8F2">{% </span><span style="color: #F92672">block</span><span style="color: #F8F8F2"> body %}</span></span>
+<span class="line"><span style="color: #F8F8F2">  {{ content</span><span style="color: #F92672">|</span><span style="color: #66D9EF">raw</span><span style="color: #F8F8F2"> }}</span></span>
+<span class="line"><span style="color: #F8F8F2">{% </span><span style="color: #F92672">endblock</span><span style="color: #F8F8F2"> %}</span></span></code></pre>
+<p>Finally, create your homepage in <code>content/_index.md</code>:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="markdown language-markdown"><span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"><span style="color: #F92672">title</span><span style="color: #F8F8F2">: </span><span style="color: #E6DB74">Homepage</span></span>
+<span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #A6E22E; font-weight: bold"># My home page</span></span></code></pre>
+<p>You can now serve your website with:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="shell language-shell"><span class="line"><span style="color: #A6E22E">$</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">npm</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">run</span><span style="color: #F8F8F2"> </span><span style="color: #E6DB74">dev</span></span></code></pre>
+<p>And access it at: <a href="http://localhost:1515">http://localhost:1515</a>.</p>
+  </section>
+    </main>
+
+    <footer class="p-6 mt-6 text-silver/50 text-center">
+  <p>Copyright &copy; 2024, David Delassus.</p>
+  <p>
+    Website content is distributed under the terms of the
+    <a
+      class="text-coral hover:text-coral/50"
+      href="https://creativecommons.org/licenses/by-sa/4.0/"
+    >
+      CC-BY-SA 4.0
+    </a>
+    license.
+  </p>
+</footer>  </body>
+</html>
