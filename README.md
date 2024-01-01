@@ -15,7 +15,7 @@ inspired by [Hugo](https://gohugo.io).
 $ mkdir my-website
 $ cd my-website
 $ npm init
-$ npm install --save-dev linkdd/gin@v0.2.0
+$ npm install --save-dev linkdd/gin#v0.2.1
 $ npx gin init .
 ```
 

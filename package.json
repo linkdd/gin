@@ -1,6 +1,6 @@
 {
   "name": "gin",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Static website generator",
   "main": "dist/index.js",
   "bin": {
