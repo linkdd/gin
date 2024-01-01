@@ -9,7 +9,10 @@ const path_1 = __importDefault(require("path"));
 const gray_matter_1 = __importDefault(require("gray-matter"));
 const scanDir = async (directory, parent = '') => {
     const urlCache = {};
-    const entries = await fs_1.promises.readdir(directory, { withFileTypes: true });
+    const entries = await fs_1.promises.readdir(directory, {
+        withFileTypes: true,
+        recursive: false,
+    });
     const directories = [];
     for (const entry of entries) {
         if (entry.isDirectory()) {
@@ -29,7 +32,11 @@ const scanDir = async (directory, parent = '') => {
             const section = urlCache[url];
             if (section !== undefined) {
                 for (const page of Object.values(childUrlCache)) {
-                    if (page.url !== url) {
+                    const isDirectChild = page.url
+                        .split(url)
+                        .flatMap((s) => s.split('/'))
+                        .filter((s) => s !== '').length === 1;
+                    if (isDirectChild) {
                         section.children.push(page);
                     }
                 }

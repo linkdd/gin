@@ -12,7 +12,10 @@ const scanDir = async (
 ): Promise<URLCache> => {
   const urlCache: URLCache = {}
 
-  const entries = await fs.readdir(directory, { withFileTypes: true })
+  const entries = await fs.readdir(directory, {
+    withFileTypes: true,
+    recursive: false,
+  })
   const directories: string[] = []
 
   for (const entry of entries) {
@@ -36,7 +39,13 @@ const scanDir = async (
       const section = urlCache[url]
       if (section !== undefined) {
         for (const page of Object.values(childUrlCache)) {
-          if (page!.url !== url) {
+          const isDirectChild =
+            page!.url
+              .split(url)
+              .flatMap((s) => s.split('/'))
+              .filter((s) => s !== '').length === 1
+
+          if (isDirectChild) {
             section.children.push(page!)
           }
         }
