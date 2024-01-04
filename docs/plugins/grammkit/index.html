@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <title>Gin - Grammkit</title>
+    <base href="https://linkdd.github.io/gin/" />
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  </head>
+
+  <body class="bg-gunmetal">
+    <nav
+  class="
+    flex items-center
+    bg-paynegrey
+    shadow-xl
+  "
+>
+  <div><a
+    class="
+      px-6 py-4
+      text-2xl text-coral
+      hover:bg-black/10
+      font-semibold
+    "
+    href="./"
+  >
+    Gin
+  </a></div>
+  <ul class="flex items-center">
+          <li class="px-6 py-4 hover:bg-black/10">
+                  <a
+            class="text-xl text-silver font-semibold"
+            href="https://github.com/linkdd/gin"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+              </li>
+          <li class="px-6 py-4 hover:bg-black/10">
+                  <a
+            class="text-xl text-silver font-semibold"
+            href="./tutorials/"
+          >
+            Tutorials
+          </a>
+              </li>
+          <li class="px-6 py-4 hover:bg-black/10">
+                  <a
+            class="text-xl text-silver font-semibold"
+            href="./docs/"
+          >
+            Documentation
+          </a>
+              </li>
+      </ul>
+</nav>
+
+    <main class="p-6 space-y-6">
+        <section
+    class="
+      w-full
+      p-6
+      bg-paynegrey/50
+      shadow-xl
+      text-silver
+      is-markdown
+    "
+  >
+    <h1 id="configuration" tabindex="-1">Configuration</h1>
+<p>In your <code>config.yaml</code>, add the following:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-yaml"><span class="line"><span style="color: #F8F8F2">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #88846F"># ...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F92672">plugins</span><span style="color: #F8F8F2">:</span></span>
+<span class="line"><span style="color: #F8F8F2">  - </span><span style="color: #E6DB74">../contrib/grammkit</span></span>
+<span class="line"></span></code></pre>
+<h1 id="usage" tabindex="-1">Usage</h1>
+<p>In your markdown files (or your templates):</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-markdown"><span class="line"><span style="color: #F8F8F2">{% apply grammkit %}</span></span>
+<span class="line"><span style="color: #F8F8F2">start = left ("+" / "-") right</span></span>
+<span class="line"><span style="color: #F8F8F2">{% endapply %}</span></span>
+<span class="line"></span></code></pre>
+<p>This result in the following:</p>
+<pre style="background-color: #272822; color: #F8F8F2;"><code class="language-html"><span class="line"><span style="color: #F8F8F2">&lt;</span><span style="color: #F92672">div</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">class</span><span style="color: #F8F8F2">=</span><span style="color: #E6DB74">"grammkit-diagrams"</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;</span><span style="color: #F92672">style</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">scoped</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    </span><span style="color: #88846F">/* css to render svg diagrams correctly */</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;/</span><span style="color: #F92672">style</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;</span><span style="color: #F92672">div</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">class</span><span style="color: #F8F8F2">=</span><span style="color: #E6DB74">"grammkit-diagram"</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;</span><span style="color: #F92672">div</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">class</span><span style="color: #F8F8F2">=</span><span style="color: #E6DB74">"grammkit-diagram-title"</span><span style="color: #F8F8F2">&gt;start&lt;/</span><span style="color: #F92672">div</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;</span><span style="color: #F92672">div</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">class</span><span style="color: #F8F8F2">=</span><span style="color: #E6DB74">"grammkit-diagram-svg"</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">      </span><span style="color: #88846F">&lt;!-- svg diagram --&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;/</span><span style="color: #F92672">div</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;</span><span style="color: #F92672">div</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">class</span><span style="color: #F8F8F2">=</span><span style="color: #E6DB74">"grammkit-diagram-src"</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">      &lt;</span><span style="color: #F92672">details</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">        &lt;</span><span style="color: #F92672">summary</span><span style="color: #F8F8F2">&gt;Show source&lt;/</span><span style="color: #F92672">summary</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">        &lt;</span><span style="color: #F92672">pre</span><span style="color: #F8F8F2">&gt;&lt;</span><span style="color: #F92672">code</span><span style="color: #F8F8F2"> </span><span style="color: #A6E22E">class</span><span style="color: #F8F8F2">=</span><span style="color: #E6DB74">"language-text"</span><span style="color: #F8F8F2">&gt;start = left ("+" / "-") right&lt;/</span><span style="color: #F92672">code</span><span style="color: #F8F8F2">&gt;&lt;/</span><span style="color: #F92672">pre</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">      &lt;/</span><span style="color: #F92672">details</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">    &lt;/</span><span style="color: #F92672">div</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">  &lt;/</span><span style="color: #F92672">div</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"><span style="color: #F8F8F2">&lt;/</span><span style="color: #F92672">div</span><span style="color: #F8F8F2">&gt;</span></span>
+<span class="line"></span></code></pre>
+<p>You can then add your own CSS style to render the generated HTML the way you
+want.</p>
+
+  </section>
+    </main>
+
+    <footer class="p-6 mt-6 text-silver/50 text-center">
+  <p>Copyright &copy; 2024, David Delassus.</p>
+  <p>
+    Website content is distributed under the terms of the
+    <a
+      class="text-coral hover:text-coral/50"
+      href="https://creativecommons.org/licenses/by-sa/4.0/"
+    >
+      CC-BY-SA 4.0
+    </a>
+    license.
+  </p>
+</footer>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+      mermaid.initialize({
+        theme: 'forest'
+      })
+    </script>
+  </body>
+</html>
