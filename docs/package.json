@@ -10,7 +10,7 @@
     "watch": "concurrently \"npm run watch:css\" \"npm run watch:content\""
   },
   "dependencies": {
-    "gensite": "file:.."
+    "gin": "file:.."
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

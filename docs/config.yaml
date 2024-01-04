@@ -4,3 +4,6 @@ baseURL: "https://linkdd.github.io/gin/"
 
 highlighter:
   theme: monokai
+
+plugins:
+  - ../contrib/grammkit
