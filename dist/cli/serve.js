@@ -92,18 +92,8 @@ exports.default = (0, cmd_ts_1.command)({
               <script type="application/javascript">
                 new WebSocket(\`ws://\${window.location.host}/__livereload__\`)
                   .addEventListener('message', () => {
-                    localStorage.setItem('livereload__scrollpos', window.scrollY)
                     window.location.reload()
                   })
-
-                document.addEventListener('DOMContentLoaded', () => {
-                  const scrollpos = localStorage.getItem('livereload__scrollpos')
-                  if (scrollpos) {
-                    console.log('scroll:', scrollpos)
-                    window.scrollTo(0, scrollpos)
-                    localStorage.removeItem('livereload__scrollpos')
-                  }
-                })
               </script>
             `);
                         html = $.html();
