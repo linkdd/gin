@@ -1,9 +1,13 @@
 import path from 'path'
+import chokidar from 'chokidar'
 
 import express from 'express'
+import expressWebsocket from 'express-ws'
 
 import { command, number, option } from 'cmd-ts'
 import { Directory } from 'cmd-ts/batteries/fs'
+
+import * as cheerio from 'cheerio'
 
 import * as fsUtils from '@/utils/fs'
 import { loadConfiguration } from '@/services/config'
@@ -31,11 +35,24 @@ export default command({
   },
   async handler({ project, bind }) {
     const app = express()
+    const ws = expressWebsocket(app)
 
     const staticDir = path.join(project, 'static')
     if (await fsUtils.exists(staticDir)) {
       app.use(express.static(staticDir))
     }
+
+    ws.app.ws('/__livereload__', (ws) => {
+      const watcher = chokidar.watch(project, {
+        ignoreInitial: true,
+      })
+      watcher.on('all', () => {
+        ws.send('reload')
+      })
+      ws.addEventListener('close', () => {
+        watcher.close()
+      })
+    })
 
     app.get('*', async (req, res, next) => {
       if (!req.path.endsWith('/')) {
@@ -49,7 +66,17 @@ export default command({
           const page = urlCache[req.path]
 
           if (page !== undefined) {
-            const html = await renderDocument(urlCache, page, project, cfg)
+            let html = await renderDocument(urlCache, page, project, cfg)
+            const $ = cheerio.load(html)
+            $('head').append(`
+              <script type="application/javascript">
+                new WebSocket(\`ws://\${window.location.host}/__livereload__\`)
+                  .addEventListener('message', () => {
+                    window.location.reload()
+                  })
+              </script>
+            `)
+            html = $.html()
             console.log(`GET ${req.path} 200 OK`)
             res.status(200).send(html)
           } else {

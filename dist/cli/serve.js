@@ -27,9 +27,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
+const chokidar_1 = __importDefault(require("chokidar"));
 const express_1 = __importDefault(require("express"));
+const express_ws_1 = __importDefault(require("express-ws"));
 const cmd_ts_1 = require("cmd-ts");
 const fs_1 = require("cmd-ts/batteries/fs");
+const cheerio = __importStar(require("cheerio"));
 const fsUtils = __importStar(require("../utils/fs"));
 const config_1 = require("../services/config");
 const content_1 = require("../services/content");
@@ -55,10 +58,22 @@ exports.default = (0, cmd_ts_1.command)({
     },
     async handler({ project, bind }) {
         const app = (0, express_1.default)();
+        const ws = (0, express_ws_1.default)(app);
         const staticDir = path_1.default.join(project, 'static');
         if (await fsUtils.exists(staticDir)) {
             app.use(express_1.default.static(staticDir));
         }
+        ws.app.ws('/__livereload__', (ws) => {
+            const watcher = chokidar_1.default.watch(project, {
+                ignoreInitial: true,
+            });
+            watcher.on('all', () => {
+                ws.send('reload');
+            });
+            ws.addEventListener('close', () => {
+                watcher.close();
+            });
+        });
         app.get('*', async (req, res, next) => {
             if (!req.path.endsWith('/')) {
                 res.redirect(`${req.path}/`);
@@ -71,7 +86,27 @@ exports.default = (0, cmd_ts_1.command)({
                     const urlCache = await (0, content_1.scanContentDir)(contentDir);
                     const page = urlCache[req.path];
                     if (page !== undefined) {
-                        const html = await (0, render_1.renderDocument)(urlCache, page, project, cfg);
+                        let html = await (0, render_1.renderDocument)(urlCache, page, project, cfg);
+                        const $ = cheerio.load(html);
+                        $('head').append(`
+              <script type="application/javascript">
+                new WebSocket(\`ws://\${window.location.host}/__livereload__\`)
+                  .addEventListener('message', () => {
+                    localStorage.setItem('livereload__scrollpos', window.scrollY)
+                    window.location.reload()
+                  })
+
+                document.addEventListener('DOMContentLoaded', () => {
+                  const scrollpos = localStorage.getItem('livereload__scrollpos')
+                  if (scrollpos) {
+                    console.log('scroll:', scrollpos)
+                    window.scrollTo(0, scrollpos)
+                    localStorage.removeItem('livereload__scrollpos')
+                  }
+                })
+              </script>
+            `);
+                        html = $.html();
                         console.log(`GET ${req.path} 200 OK`);
                         res.status(200).send(html);
                     }
